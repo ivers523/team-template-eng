@@ -8,6 +8,7 @@ const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 
 const team = [];
+let teamNumber;
 
 // prompt user for information
 function startPrompt() {
@@ -22,17 +23,37 @@ function startPrompt() {
     .then(function (res) {
       if (res.start === 'Yes')
         console.log("build team")
-      findRole();
+      teamSize();
     })
-  // add "else" behavior here
+
 }
-// create function to ask about team (build team)
-// find role
+// determine number of team members
+function teamSize() {
+  inquirer.prompt(
+    {
+      type: "list",
+      message: "Please select team size",
+      choices: [1, 2, 3, 4, 5, 6],
+      name: "teamsize"
+    })
+    .then(function (res) {
+      console.log(res.teamsize);
+      let teamsize = res.teamsize;
+      if (team.length < teamsize) {
+        console.log("add another member");
+        console.log(team);
+      } else {
+        console.log("printtohtml");
+
+      }
+    })
+}
+
 function findRole() {
   inquirer.prompt(
     {
       type: "list",
-      message: "To create new employee, please input one of the following:",
+      message: "To add a new team member, please select one of the following:",
       choices: ['School', 'Github Username', 'Office Number'],
       name: "role"
     }
@@ -52,12 +73,12 @@ function findRole() {
     })
 }
 // build roles
-function buildIntern(res) {
+function buildIntern(res){
   let intern = new Intern(res.school, res.name, res.id, res.email);
   inquirer.prompt([
     {
       type: "input",
-      message: "Enter School:",
+      message: "Enter Intern School:",
       name: "school"
     },
     {
@@ -74,83 +95,88 @@ function buildIntern(res) {
       type: "input",
       message: "Enter email addres:",
       name: "email"
-    },
+    }
   ])
-    .then(function (res) {
-      intern.school = res.school;
-      intern.name = res.name;
-      intern.id = res.id;
-      intern.email = res.email;
-      team.push(intern);
+    .then(function (res){
+    intern.school = res.school;
+    intern.name = res.name;
+    intern.id = res.id;
+    intern.email = res.email;
+    if (team.length < teamsize ){
       console.log(team);
-    })
-}
-function buildEngineer(res) {
-  let engineer = new Engineer(res.github, res.name, res.id, res.email);
-  inquirer.prompt([
-    {
-      type: "input",
-      message: "Enter Github username:",
-      name: "github"
-    },
-    {
-      type: "input",
-      message: "Enter Engineer Name:",
-      name: "name"
-    },
-    {
-      type: "input",
-      message: "Enter ID:",
-      name: "id"
-    },
-    {
-      type: "input",
-      message: "Enter email addres:",
-      name: "email"
-    },
-  ])
-    .then(function (res) {
-      engineer.github = res.github;
-      engineer.name = res.name;
-      engineer.id = res.id;
-      engineer.email = res.email;
-      team.push(engineer);
-      console.log(team);
-    })
-}
-function buildManager(res) {
-  let manager = new Manager(res.officenumber, res.name, res.id, res.email);
-  inquirer.prompt([
-    {
-      type: "input",
-      message: "Enter office number:",
-      name: "officenumber"
-    },
-    {
-      type: "input",
-      message: "Enter Manager Name:",
-      name: "name"
-    },
-    {
-      type: "input",
-      message: "Enter ID:",
-      name: "id"
-    },
-    {
-      type: "input",
-      message: "Enter email addres:",
-      name: "email"
-    },
-  ])
-    .then(function (res) {
-      manager.officenumber = res.officenumber;
-      manager.name = res.name;
-      manager.id = res.id;
-      manager.email = res.email;
-      team.push(manager);
-      console.log(team);
-    })
+    }
+  
+ })
 }
 
+
 startPrompt();
+
+// function buildEngineer(res) {
+//   let engineer = new Engineer(res.github, res.name, res.id, res.email);
+//   inquirer.prompt([
+//     {
+//       type: "input",
+//       message: "Enter Engineer Github username:",
+//       name: "github"
+//     },
+//     {
+//       type: "input",
+//       message: "Enter Engineer Name:",
+//       name: "name"
+//     },
+//     {
+//       type: "input",
+//       message: "Enter ID:",
+//       name: "id"
+//     },
+//     {
+//       type: "input",
+//       message: "Enter email addres:",
+//       name: "email"
+//     },
+//   ])
+//     .then(function (res) {
+//       engineer.github = res.github;
+//       engineer.name = res.name;
+//       engineer.id = res.id;
+//       engineer.email = res.email;
+//       team.push(engineer);
+//       console.log(team);
+//     })
+// }
+// function buildManager(res) {
+//   let manager = new Manager(res.officenumber, res.name, res.id, res.email);
+//   inquirer.prompt([
+//     {
+//       type: "input",
+//       message: "Enter Manager office number:",
+//       name: "officenumber"
+//     },
+//     {
+//       type: "input",
+//       message: "Enter Manager Name:",
+//       name: "name"
+//     },
+//     {
+//       type: "input",
+//       message: "Enter ID:",
+//       name: "id"
+//     },
+//     {
+//       type: "input",
+//       message: "Enter email addres:",
+//       name: "email"
+//     },
+//   ])
+//     .then(function (res) {
+//       manager.officenumber = res.officenumber;
+//       manager.name = res.name;
+//       manager.id = res.id;
+//       manager.email = res.email;
+//       team.push(manager);
+//       console.log(team);
+//     })
+// }
+
 
