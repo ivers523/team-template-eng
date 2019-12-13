@@ -48,12 +48,25 @@ function buildTeam() {
   .then (function(res){
     if (res.role==='School'){
       console.log("Intern");
+      buildIntern();
     } else if (res.role==='Github'){
       console.log("Engineer");
+      buildEngineer();
     } else {
       console.log("Manager")
+      buildManager();
     }
   }
   )
+
+  function buildIntern (){
+    console.log("Intern built");
+  }
+  function buildEngineer (){
+    console.log("Engineer built");
+  }
+  function buildManager (){
+    console.log("Manager built");
+  }
 }  
 startPrompt();
