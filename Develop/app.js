@@ -10,14 +10,6 @@ const Intern = require("./lib/intern");
 const team = [];
 let teamLength;
 
-// function checkFinish() {
-//   if (team.length < teamLength) {
-//       findRole();
-//   } else {
-//       writeTopHTML();
-//   }
-// }
-
 // prompt user for information
 function startPrompt() {
   inquirer.prompt(
@@ -49,7 +41,7 @@ function teamSize() {
     .then(function (res) {
       console.log(res.teamsize);
       findRole();
-      // let res.teamsize = teamLength;
+      // NEED TO FIND WAY TO SAVE TEAM LENGTH TO GLOBAL VARIABLE
       }
       
     )
@@ -194,9 +186,9 @@ function buildManager(res){
  })
 }
 
-
 function writeToHTML(){
   console.log("write to hmtl");
+  // fs.writeFile("./output/team.html", buildHTML())
 }
 startPrompt();
 
